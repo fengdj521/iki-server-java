@@ -1,4 +1,4 @@
-#Mon Mar 14 15:11:13 CST 2011
+#Tue Mar 15 23:35:18 CST 2011
 eclipse.preferences.version=1
 editor_save_participant_org.eclipse.jdt.ui.postsavelistener.cleanup=true
 formatter_profile=_Eclipse Spaces Only
@@ -46,7 +46,7 @@ sp_cleanup.remove_unused_private_fields=true
 sp_cleanup.remove_unused_private_members=false
 sp_cleanup.remove_unused_private_methods=true
 sp_cleanup.remove_unused_private_types=true
-sp_cleanup.sort_members=true
+sp_cleanup.sort_members=false
 sp_cleanup.sort_members_all=false
 sp_cleanup.use_blocks=true
 sp_cleanup.use_blocks_only_for_return_and_throw=false

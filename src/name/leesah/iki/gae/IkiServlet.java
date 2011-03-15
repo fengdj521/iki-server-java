@@ -11,26 +11,26 @@ public class IkiServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
-        String u = req.getParameter("u");
-        String i = req.getParameter("i");
-        long a = Long.parseLong(req.getParameter("a"));
-        long o = Long.parseLong(req.getParameter("o"));
+        String uid = req.getParameter("u");
+        String info = req.getParameter("i");
+        long latitude = Long.parseLong(req.getParameter("a"));
+        long longtitude = Long.parseLong(req.getParameter("o"));
 
-        u = u == null || u.isEmpty() ? "Anonymous user" : u;
+        uid = uid == null || uid.isEmpty() ? "Anonymous user" : uid;
 
-        String string;
+        String text;
         try {
-            Iki.know(u, i, a, o);
-            if (i == null || i.isEmpty()) {
-                string = "Error!";
+            Iki.know(uid, info, latitude, longtitude);
+            if (info == null || info.isEmpty()) {
+                text = "Error!";
             } else {
-                string = u + " reported " + i + " from " + a + "/" + o + ".";
+                text = uid + " reported " + info + " from " + latitude + "/" + longtitude + ".";
             }
         } catch (IkiException e) {
-            string = e.getMessage();
+            text = e.getMessage();
         }
         resp.setContentType("text/plain");
-        resp.getWriter().println(string);
+        resp.getWriter().println(text);
 
     }
 }

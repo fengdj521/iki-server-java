@@ -7,19 +7,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-public class SignUpServlet extends HttpServlet {
+public class GetUidServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
-        String string = req.getParameter("email");
+
+        String uid;
+        String text;
         try {
-            string = Iki.signUp(string);
+            uid = Iki.getUid(req.getParameter("e"));
+            text = "uid = " + uid;
+            resp.setHeader("uid", uid);
+
         } catch (IkiException e) {
-            string = e.getMessage();
+            text = e.getMessage();
         }
 
         resp.setContentType("text/plain");
-        resp.getWriter().println(string);
+        resp.getWriter().println(text);
 
     }
 }
