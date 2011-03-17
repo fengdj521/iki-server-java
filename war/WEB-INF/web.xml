@@ -10,7 +10,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Iki</servlet-name>
-		<url-pattern>/report</url-pattern>
+		<url-pattern>/iki</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>GetUid</servlet-name>

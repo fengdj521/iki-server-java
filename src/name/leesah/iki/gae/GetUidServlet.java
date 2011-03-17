@@ -12,19 +12,16 @@ public class GetUidServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 
-        String uid;
-        String text;
+        resp.setContentType("text/plain");
         try {
-            uid = Iki.getUid(req.getParameter("e"));
-            text = "uid = " + uid;
+            String uid = Iki.getUid(req.getParameter("e"));
             resp.setHeader("uid", uid);
+            resp.getWriter().println("uid = " + uid);
 
         } catch (IkiException e) {
-            text = e.getMessage();
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().println(e.getMessage());
         }
-
-        resp.setContentType("text/plain");
-        resp.getWriter().println(text);
 
     }
 }

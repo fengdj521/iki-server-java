@@ -25,12 +25,15 @@ public class Iki {
             .getDatastoreService();
 
     public static String getUid(String email) throws IkiException {
-        if (email == null) {
+
+        // u kidding me?
+        if (email == null || email.isEmpty()) {
             throw new IkiException("Invalid email.");
         }
 
         Key key;
 
+        // query
         List<Entity> entityList = datastore.prepare(
                 new Query("User").addFilter("email",
                         Query.FilterOperator.EQUAL, email)).asList(
@@ -65,6 +68,8 @@ public class Iki {
 
     public static void know(String u, String i, long a, long o)
             throws IkiException {
+
+        // anonymous users are banned.
         Entity user;
         try {
             user = datastore.get(KeyFactory.stringToKey(u));
@@ -79,7 +84,7 @@ public class Iki {
             user.setProperty("pains", ((Integer) user.getProperty("pains")) + 1);
         }
         user.setProperty("latestLatitude", a);
-        user.setProperty("latestLongtitude", o);
+        user.setProperty("latestLongitude", o);
 
         Entity report = new Entity("Report");
         report.setProperty("u", u);

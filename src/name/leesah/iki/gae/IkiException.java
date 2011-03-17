@@ -22,4 +22,8 @@ public class IkiException extends Exception {
         super(cause);
     }
 
+    public IkiException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
 }
