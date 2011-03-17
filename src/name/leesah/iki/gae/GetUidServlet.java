@@ -9,19 +9,37 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class GetUidServlet extends HttpServlet {
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        String email = req.getParameter("e");
 
         resp.setContentType("text/plain");
-        try {
-            String uid = Iki.getUid(req.getParameter("e"));
-            resp.setHeader("uid", uid);
-            resp.getWriter().println("uid = " + uid);
+        resp.getWriter().println("e = " + email);
 
-        } catch (IkiException e) {
+        if (email != null && !email.isEmpty() && isEmailValid(email)) {
+
+            try {
+                String uid = Iki.getUid(email);
+                resp.setHeader("uid", uid);
+                resp.getWriter().println("uid = " + uid);
+
+            } catch (IkiException e) {
+                resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                resp.getWriter().println(e.getMessage());
+            }
+
+        } else {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().println(e.getMessage());
+            resp.getWriter().println(":-(");
         }
 
+    }
+
+    /**
+     * @param email
+     * @return
+     */
+    protected boolean isEmailValid(String email) {
+        return email.matches("[A-Za-z0-9\\.\\-_#]+\\@[A-Za-z0-9\\._-]+\\.[A-Za-z]+");
     }
 }

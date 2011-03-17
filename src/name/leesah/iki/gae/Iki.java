@@ -21,23 +21,25 @@ import com.google.appengine.api.datastore.Query;
  */
 public class Iki {
 
-    private static final DatastoreService datastore = DatastoreServiceFactory
-            .getDatastoreService();
+    private static final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
+    /**
+     * @param email
+     * @return
+     * @throws IkiException
+     */
     public static String getUid(String email) throws IkiException {
 
         // u kidding me?
         if (email == null || email.isEmpty()) {
-            throw new IkiException("Invalid email.");
+            throw new IkiException("Invalid email address.");
         }
 
         Key key;
 
         // query
-        List<Entity> entityList = datastore.prepare(
-                new Query("User").addFilter("email",
-                        Query.FilterOperator.EQUAL, email)).asList(
-                FetchOptions.Builder.withLimit(2));
+        List<Entity> entityList = datastore.prepare(new Query("User").addFilter("email", Query.FilterOperator.EQUAL, email))
+                .asList(FetchOptions.Builder.withLimit(2));
 
         // new user
         if (0 == entityList.size()) {
@@ -47,7 +49,6 @@ public class Iki {
             user.setProperty("fines", 0);
             user.setProperty("pains", 0);
             key = datastore.put(user);
-
         }
 
         // existing user
@@ -58,16 +59,25 @@ public class Iki {
 
         // crap!
         else {
-            throw new IkiException("More than one user matches email: '"
-                    + email + "'.");
+            throw new IkiException("More than one user matches email: '" + email + "'.");
         }
 
         return KeyFactory.keyToString(key);
 
     }
 
-    public static void know(String u, String i, long a, long o)
-            throws IkiException {
+    /**
+     * @param u
+     *            <b>u</b>id
+     * @param i
+     *            <b>i</b>nfo, f for fine, p for pain
+     * @param a
+     *            l<b>a</b>titude
+     * @param o
+     *            l<b>o</b>ngitude
+     * @throws IkiException
+     */
+    public static void know(String u, String i, long a, long o) throws IkiException {
 
         // anonymous users are banned.
         Entity user;
