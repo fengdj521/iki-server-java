@@ -4,6 +4,7 @@
 package name.leesah.iki.gae;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -16,7 +17,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
 
 /**
- * @author esaalii
+ * @author Sah
  * 
  */
 public class Iki {
@@ -25,7 +26,7 @@ public class Iki {
 
     /**
      * @param email
-     * @return
+     * @return a unique string value for the user
      * @throws IkiException
      */
     public static String getUid(String email) throws IkiException {
@@ -67,41 +68,50 @@ public class Iki {
     }
 
     /**
-     * @param u
-     *            <b>u</b>id
-     * @param i
-     *            <b>i</b>nfo, f for fine, p for pain
-     * @param a
-     *            l<b>a</b>titude
-     * @param o
-     *            l<b>o</b>ngitude
+     * @param uid
+     * @param info
+     * @param latitude
+     * @param longitude
      * @throws IkiException
      */
-    public static void know(String u, String i, long a, long o) throws IkiException {
+    public static void know(String uid, String info, long latitude, long longitude) throws IkiException {
 
         // anonymous users are banned.
         Entity user;
         try {
-            user = datastore.get(KeyFactory.stringToKey(u));
+            user = datastore.get(KeyFactory.stringToKey(uid));
         } catch (EntityNotFoundException e) {
             throw new IkiException(e);
         }
 
         user.setProperty("credits", ((Integer) user.getProperty("credits")) + 1);
-        if ("fine".equals(i)) {
+        if ("fine".equals(info)) {
             user.setProperty("fines", ((Integer) user.getProperty("fines")) + 1);
         } else {
             user.setProperty("pains", ((Integer) user.getProperty("pains")) + 1);
         }
-        user.setProperty("latestLatitude", a);
-        user.setProperty("latestLongitude", o);
+        user.setProperty("latestLatitude", latitude);
+        user.setProperty("latestLongitude", longitude);
 
-        Entity report = new Entity("Report");
-        report.setProperty("u", u);
-        report.setProperty("i", i);
-        report.setProperty("a", a);
-        report.setProperty("o", o);
+        Entity knowledge = new Entity("Knowledge");
+        knowledge.setProperty("uid", uid);
+        knowledge.setProperty("info", info);
+        knowledge.setProperty("latitude", latitude);
+        knowledge.setProperty("longitude", longitude);
+        knowledge.setProperty("time", new Date().getTime());
 
-        datastore.put(Arrays.asList(user, report));
+        datastore.put(Arrays.asList(user, knowledge));
+    }
+
+    /**
+     * @param latitude
+     * @param longitude
+     * @return
+     */
+    public static double predict(long latitude, long longitude) {
+
+        double possibility = 0;
+        return possibility;
+
     }
 }

@@ -6,8 +6,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * @author Sah
+ * 
+ */
 @SuppressWarnings("serial")
-public class IkiServlet extends HttpServlet {
+public class KnowServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 

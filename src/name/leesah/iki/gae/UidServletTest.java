@@ -9,19 +9,18 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
- * @author esaalii
+ * @author Sah
  * 
  */
-public class GetUidServletTest {
+public class UidServletTest {
 
     /**
      * Test method for
-     * {@link name.leesah.iki.gae.GetUidServlet#isEmailValid(java.lang.String)}
-     * .
+     * {@link name.leesah.iki.gae.UidServlet#isEmailValid(java.lang.String)} .
      */
     @Test
     public void testIsEmailValid() {
-        GetUidServlet servlet = new GetUidServlet();
+        UidServlet servlet = new UidServlet();
 
         assertFalse(servlet.isEmailValid(""));
         assertFalse(servlet.isEmailValid("user"));

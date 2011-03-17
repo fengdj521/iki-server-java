@@ -5,20 +5,28 @@ xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet>
-		<servlet-name>Iki</servlet-name>
-		<servlet-class>name.leesah.iki.gae.IkiServlet</servlet-class>
+		<servlet-name>Uid</servlet-name>
+		<servlet-class>name.leesah.iki.gae.UidServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Iki</servlet-name>
-		<url-pattern>/iki</url-pattern>
+		<servlet-name>Uid</servlet-name>
+		<url-pattern>/uid</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>GetUid</servlet-name>
-		<servlet-class>name.leesah.iki.gae.GetUidServlet</servlet-class>
+		<servlet-name>Know</servlet-name>
+		<servlet-class>name.leesah.iki.gae.KnowServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>GetUid</servlet-name>
-		<url-pattern>/getuid</url-pattern>
+		<servlet-name>Know</servlet-name>
+		<url-pattern>/know</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Predict</servlet-name>
+		<servlet-class>name.leesah.iki.gae.PredictServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Predict</servlet-name>
+		<url-pattern>/predict</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
