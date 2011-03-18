@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.datastore.EntityNotFoundException;
+
 /**
  * @author Sah
  * 
@@ -25,13 +27,13 @@ public class PredictServlet extends HttpServlet {
         resp.setContentType("text/plain");
         resp.getWriter().println("predicton on '" + latitude + "/" + longitude + "'.");
 
-        // latitude & longitude are numbers
-        if (latitude != null && longitude != null && latitude.matches("[-+]?\\d*\\.?\\d+")
-                && longitude.matches("[-+]?\\d*\\.?\\d+")) {
-
-            Iki.predict(Long.parseLong(latitude), Long.parseLong(longitude));
-
-        } else {
+        try {
+            int prediction = (int) Iki.predict(Long.parseLong(latitude), Long.parseLong(longitude)) * 100;
+            resp.setIntHeader("prediction", prediction);
+            resp.getWriter().println("prediction = " + prediction);
+        } catch (NumberFormatException e) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        } catch (EntityNotFoundException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
