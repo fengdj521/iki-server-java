@@ -28,7 +28,7 @@ public class PredictServlet extends HttpServlet {
         resp.getWriter().println("predicton on '" + latitude + "/" + longitude + "'.");
 
         try {
-            int prediction = (int) Iki.predict(Long.parseLong(latitude), Long.parseLong(longitude)) * 100;
+            int prediction = (int) Iki.getInstance().predict(Long.parseLong(latitude), Long.parseLong(longitude)) * 100;
             resp.setIntHeader("prediction", prediction);
             resp.getWriter().println("prediction = " + prediction);
         } catch (NumberFormatException e) {

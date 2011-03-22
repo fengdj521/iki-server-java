@@ -49,17 +49,26 @@ public class Iki {
     private static final String PROP_KNOWLEDGE_LONGITUDE = "longitude";
     private static final String PROP_KNOWLEDGE_TIME = "time";
 
-    private static final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    private final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    private static Iki instance;
+
+    public static Iki getInstance() {
+        if (null == instance) {
+            instance = new Iki();
+        }
+        return instance;
+
+    }
 
     /**
      * @param email
      * @return a unique string value for the user
      * @throws IkiException
      */
-    public static String uid(String email) throws IkiException {
+    public String uid(String email) throws IkiException {
 
         // u kidding me?
-        if (isEmailValid(email)) {
+        if (!isEmailValid(email)) {
             throw new IkiException("Invalid email address: " + email);
         }
 
@@ -103,8 +112,7 @@ public class Iki {
      * @throws IkiException
      * @throws EntityNotFoundException
      */
-    public static void know(String uid, String info, long latitude, long longitude) throws IkiException,
-            EntityNotFoundException {
+    public void know(String uid, String info, long latitude, long longitude) throws IkiException, EntityNotFoundException {
 
         Entity user = datastore.get(KeyFactory.stringToKey(uid));
 
@@ -139,7 +147,7 @@ public class Iki {
      * @return
      * @throws EntityNotFoundException
      */
-    public static double predict(long latitude, long longitude) throws EntityNotFoundException {
+    public double predict(long latitude, long longitude) throws EntityNotFoundException {
 
         // all pain knowledges
         Query queryPains = new Query(ENTITY_TYPE_KNOWLEDGE);
@@ -233,7 +241,7 @@ public class Iki {
      * @param email
      * @return
      */
-    static boolean isEmailValid(String email) {
+    boolean isEmailValid(String email) {
         return email.matches("[A-Za-z0-9\\.\\-_#]+\\@[A-Za-z0-9\\._-]+\\.[A-Za-z]+");
     }
 }

@@ -21,35 +21,36 @@ public class IkiTest {
     @Test
     public void testIsEmailValid() {
 
-        assertFalse(Iki.isEmailValid(""));
-        assertFalse(Iki.isEmailValid("user"));
-        assertFalse(Iki.isEmailValid("user@"));
-        assertFalse(Iki.isEmailValid("example.com"));
-        assertFalse(Iki.isEmailValid("@example.com"));
-        assertFalse(Iki.isEmailValid("user.example.com"));
-        assertFalse(Iki.isEmailValid("user@example"));
-        assertFalse(Iki.isEmailValid("us@er@example.com"));
-        assertFalse(Iki.isEmailValid("@example"));
-        assertFalse(Iki.isEmailValid("user~@example.com"));
-        assertFalse(Iki.isEmailValid("user@example#.com"));
-        assertFalse(Iki.isEmailValid("user@example~.com"));
-        assertFalse(Iki.isEmailValid("user@example.com1"));
-        assertFalse(Iki.isEmailValid("user@example.com#"));
-        assertFalse(Iki.isEmailValid("user@example.com-"));
-        assertFalse(Iki.isEmailValid("user@example.com_"));
-        assertFalse(Iki.isEmailValid("user@example.com~"));
+        assertFalse(Iki.getInstance().isEmailValid(""));
+        assertFalse(Iki.getInstance().isEmailValid("user"));
+        assertFalse(Iki.getInstance().isEmailValid("user@"));
+        assertFalse(Iki.getInstance().isEmailValid("example.com"));
+        assertFalse(Iki.getInstance().isEmailValid("@example.com"));
+        assertFalse(Iki.getInstance().isEmailValid("user.example.com"));
+        assertFalse(Iki.getInstance().isEmailValid("user@example"));
+        assertFalse(Iki.getInstance().isEmailValid("us@er@example.com"));
+        assertFalse(Iki.getInstance().isEmailValid("@example"));
+        assertFalse(Iki.getInstance().isEmailValid("user~@example.com"));
+        assertFalse(Iki.getInstance().isEmailValid("user@example#.com"));
+        assertFalse(Iki.getInstance().isEmailValid("user@example~.com"));
+        assertFalse(Iki.getInstance().isEmailValid("user@example.com1"));
+        assertFalse(Iki.getInstance().isEmailValid("user@example.com#"));
+        assertFalse(Iki.getInstance().isEmailValid("user@example.com-"));
+        assertFalse(Iki.getInstance().isEmailValid("user@example.com_"));
+        assertFalse(Iki.getInstance().isEmailValid("user@example.com~"));
 
-        assertTrue(Iki.isEmailValid("user@example.com"));
-        assertTrue(Iki.isEmailValid("1user@example.com"));
-        assertTrue(Iki.isEmailValid("user1@example.com"));
-        assertTrue(Iki.isEmailValid("user#@example.com"));
-        assertTrue(Iki.isEmailValid("user-@example.com"));
-        assertTrue(Iki.isEmailValid("user_@example.com"));
-        assertTrue(Iki.isEmailValid("user.@example.com"));
-        assertTrue(Iki.isEmailValid("user@1example.com"));
-        assertTrue(Iki.isEmailValid("user@example1.com"));
-        assertTrue(Iki.isEmailValid("user@example-.com"));
-        assertTrue(Iki.isEmailValid("user@example_.com"));
-        assertTrue(Iki.isEmailValid("user@leesah.name"));
+        assertTrue(Iki.getInstance().isEmailValid("user@example.com"));
+        assertTrue(Iki.getInstance().isEmailValid("1user@example.com"));
+        assertTrue(Iki.getInstance().isEmailValid("user1@example.com"));
+        assertTrue(Iki.getInstance().isEmailValid("user#@example.com"));
+        assertTrue(Iki.getInstance().isEmailValid("user-@example.com"));
+        assertTrue(Iki.getInstance().isEmailValid("user_@example.com"));
+        assertTrue(Iki.getInstance().isEmailValid("user.@example.com"));
+        assertTrue(Iki.getInstance().isEmailValid("user@1example.com"));
+        assertTrue(Iki.getInstance().isEmailValid("user@example1.com"));
+        assertTrue(Iki.getInstance().isEmailValid("user@example-.com"));
+        assertTrue(Iki.getInstance().isEmailValid("user@example_.com"));
+        assertTrue(Iki.getInstance().isEmailValid("user@leesah.name"));
+        assertTrue(Iki.getInstance().isEmailValid("test@leesah.name"));
     }
 }
