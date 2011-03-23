@@ -112,16 +112,16 @@ public class Iki {
      * @throws IkiException
      * @throws EntityNotFoundException
      */
-    public void know(String uid, String info, long latitude, long longitude) throws IkiException, EntityNotFoundException {
+    public void know(String uid, String info, double latitude, double longitude) throws IkiException, EntityNotFoundException {
 
         Entity user = datastore.get(KeyFactory.stringToKey(uid));
 
         // update user
-        user.setProperty(PROP_USER_CREDITS, ((Integer) user.getProperty(PROP_USER_CREDITS)) + 1);
+        user.setProperty(PROP_USER_CREDITS, ((Long) user.getProperty(PROP_USER_CREDITS)) + 1);
         if (INFO_F.equals(info)) {
-            user.setProperty(PROP_USER_FINES, ((Integer) user.getProperty(PROP_USER_FINES)) + 1);
+            user.setProperty(PROP_USER_FINES, ((Long) user.getProperty(PROP_USER_FINES)) + 1);
         } else if (INFO_P.equals(info)) {
-            user.setProperty(PROP_USER_PAINS, ((Integer) user.getProperty(PROP_USER_PAINS)) + 1);
+            user.setProperty(PROP_USER_PAINS, ((Long) user.getProperty(PROP_USER_PAINS)) + 1);
         } else {
             throw new IkiException("Unknown info: " + info + ".");
         }

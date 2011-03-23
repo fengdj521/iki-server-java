@@ -26,13 +26,16 @@ public class KnowServlet extends HttpServlet {
         resp.getWriter().println("'" + uid + "' reported '" + info + "' from '" + latitude + "/" + longitude + "'.");
 
         try {
-            Iki.getInstance().know(uid, info, Long.parseLong(latitude), Long.parseLong(longitude));
+            Iki.getInstance().know(uid, info, Double.parseDouble(latitude), Double.parseDouble(longitude));
         } catch (IkiException e) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.setHeader("errorMessage", e.getMessage());
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
         } catch (NumberFormatException e) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.setHeader("errorMessage", e.getMessage());
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
         } catch (EntityNotFoundException e) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.setHeader("errorMessage", e.getMessage());
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
         }
     }
 }
