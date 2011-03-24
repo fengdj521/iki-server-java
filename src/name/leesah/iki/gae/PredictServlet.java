@@ -28,13 +28,18 @@ public class PredictServlet extends HttpServlet {
         resp.getWriter().println("predicton on '" + latitude + "/" + longitude + "'.");
 
         try {
-            int prediction = (int) Iki.getInstance().predict(Long.parseLong(latitude), Long.parseLong(longitude)) * 100;
-            resp.setIntHeader("prediction", prediction);
+
+            String prediction = String.valueOf(Iki.getInstance().predict(Double.parseDouble(latitude),
+                    Double.parseDouble(longitude)));
+            resp.setHeader("prediction", prediction);
             resp.getWriter().println("prediction = " + prediction);
+
         } catch (NumberFormatException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } catch (EntityNotFoundException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
+
     }
+
 }

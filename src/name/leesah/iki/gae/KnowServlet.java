@@ -26,7 +26,9 @@ public class KnowServlet extends HttpServlet {
         resp.getWriter().println("'" + uid + "' reported '" + info + "' from '" + latitude + "/" + longitude + "'.");
 
         try {
+
             Iki.getInstance().know(uid, info, Double.parseDouble(latitude), Double.parseDouble(longitude));
+
         } catch (IkiException e) {
             resp.setHeader("errorMessage", e.getMessage());
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());

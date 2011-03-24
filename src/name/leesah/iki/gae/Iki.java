@@ -23,34 +23,35 @@ import com.google.appengine.api.datastore.Query;
  */
 public class Iki {
 
-    private static final String INFO_P = "p";
-    private static final String INFO_F = "f";
+    private static final String    INFO_P                     = "p";
+    private static final String    INFO_F                     = "f";
 
-    private static final double WEIGHT_INCREMENT = 1.05;
-    private static final double WEIGHT_DECREMENT = 0.5;
+    private static final double    WEIGHT_INCREMENT           = 1.05;
+    private static final double    WEIGHT_DECREMENT           = 0.5;
+    private static final double    ACCURACY                   = 0.6;
 
-    private static final long MILLIS_OF_A_DAY = 1000 * 60 * 60 * 24;
-    private static final long MILLIS_OF_A_WEEK = MILLIS_OF_A_DAY * 7;
-    private static final long MILLIS_OF_A_MONTH = MILLIS_OF_A_DAY * 30;
+    private static final long      MILLIS_OF_A_DAY            = 1000 * 60 * 60 * 24;
+    private static final long      MILLIS_OF_A_WEEK           = MILLIS_OF_A_DAY * 7;
+    private static final long      MILLIS_OF_A_MONTH          = MILLIS_OF_A_DAY * 30;
 
-    private static final String ENTITY_TYPE_USER = "User";
-    private static final String PROP_USER_EMAIL = "email";
-    private static final String PROP_USER_CREDITS = "credits";
-    private static final String PROP_USER_PAINS = "pains";
-    private static final String PROP_USER_FINES = "fines";
-    private static final String PROP_USER_LATEST_LATITUDE = "latest_latitude";
-    private static final String PROP_USER_LATEST_LONGITUDE = "latest_longitude";
-    private static final String PROP_USER_LATEST_TIME = "latestTime";
+    private static final String    ENTITY_TYPE_USER           = "User";
+    private static final String    PROP_USER_EMAIL            = "email";
+    private static final String    PROP_USER_CREDITS          = "credits";
+    private static final String    PROP_USER_PAINS            = "pains";
+    private static final String    PROP_USER_FINES            = "fines";
+    private static final String    PROP_USER_LATEST_LATITUDE  = "latest_latitude";
+    private static final String    PROP_USER_LATEST_LONGITUDE = "latest_longitude";
+    private static final String    PROP_USER_LATEST_TIME      = "latestTime";
 
-    private static final String ENTITY_TYPE_KNOWLEDGE = "Knowledge";
-    private static final String PROP_KNOWLEDGE_UID = "uid";
-    private static final String PROP_KNOWLEDGE_INFO = "info";
-    private static final String PROP_KNOWLEDGE_LATITUDE = "latitude";
-    private static final String PROP_KNOWLEDGE_LONGITUDE = "longitude";
-    private static final String PROP_KNOWLEDGE_TIME = "time";
+    private static final String    ENTITY_TYPE_KNOWLEDGE      = "Knowledge";
+    private static final String    PROP_KNOWLEDGE_UID         = "uid";
+    private static final String    PROP_KNOWLEDGE_INFO        = "info";
+    private static final String    PROP_KNOWLEDGE_LATITUDE    = "latitude";
+    private static final String    PROP_KNOWLEDGE_LONGITUDE   = "longitude";
+    private static final String    PROP_KNOWLEDGE_TIME        = "time";
 
-    private final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    private static Iki instance;
+    private final DatastoreService datastore                  = DatastoreServiceFactory.getDatastoreService();
+    private static Iki             instance;
 
     public static Iki getInstance() {
         if (null == instance) {
@@ -147,7 +148,7 @@ public class Iki {
      * @return
      * @throws EntityNotFoundException
      */
-    public double predict(long latitude, long longitude) throws EntityNotFoundException {
+    public double predict(double latitude, double longitude) throws EntityNotFoundException {
 
         // all pain knowledges
         Query queryPains = new Query(ENTITY_TYPE_KNOWLEDGE);
@@ -233,7 +234,7 @@ public class Iki {
         }
 
         // possibility of raining
-        return wet / (wet + dry + unknown);
+        return wet / (wet + dry + unknown) * ACCURACY;
 
     }
 

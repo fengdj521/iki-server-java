@@ -21,6 +21,7 @@ public class UidServlet extends HttpServlet {
         resp.getWriter().println("e = " + email);
 
         try {
+
             String uid = Iki.getInstance().uid(email);
             resp.setHeader("uid", uid);
             resp.getWriter().println("uid = " + uid);
