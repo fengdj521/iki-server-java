@@ -12,10 +12,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @SuppressWarnings("serial")
 public class UidServlet extends HttpServlet {
+
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        String email = req.getParameter("e");
+        String email = req.getParameter(Constants.E);
 
         resp.setContentType("text/plain");
         resp.getWriter().println("e = " + email);
@@ -23,11 +24,12 @@ public class UidServlet extends HttpServlet {
         try {
 
             String uid = Iki.getInstance().uid(email);
-            resp.setHeader("uid", uid);
+            resp.setHeader(Constants.UID, uid);
             resp.getWriter().println("uid = " + uid);
 
         } catch (IkiException e) {
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.setHeader(Constants.IKI_ERROR, e.getMessage());
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
             resp.getWriter().println(e.getMessage());
         }
 

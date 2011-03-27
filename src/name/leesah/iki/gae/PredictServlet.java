@@ -21,8 +21,8 @@ public class PredictServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        String latitude = req.getParameter("a");
-        String longitude = req.getParameter("o");
+        String latitude = req.getParameter(Constants.A);
+        String longitude = req.getParameter(Constants.O);
 
         resp.setContentType("text/plain");
         resp.getWriter().println("predicton on '" + latitude + "/" + longitude + "'.");
@@ -31,13 +31,15 @@ public class PredictServlet extends HttpServlet {
 
             String prediction = String.valueOf(Iki.getInstance().predict(Double.parseDouble(latitude),
                     Double.parseDouble(longitude)));
-            resp.setHeader("prediction", prediction);
+            resp.setHeader(Constants.PREDICTION, prediction);
             resp.getWriter().println("prediction = " + prediction);
 
         } catch (NumberFormatException e) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.setHeader(Constants.IKI_ERROR, e.getMessage());
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
         } catch (EntityNotFoundException e) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.setHeader(Constants.IKI_ERROR, e.getMessage());
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
         }
 
     }
